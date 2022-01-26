@@ -1,1 +1,1 @@
-console.log("Okej działa");
+const listElement = [];
