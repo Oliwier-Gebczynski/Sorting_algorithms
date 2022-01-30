@@ -1,36 +1,39 @@
+import { swap, search, quickSort } from './script/quickSort';
+import { createElements, printElements } from './script/htmlElements';
+
+// variables/consts 
 const reset = document.querySelector("#reset");
-const main = document.querySelector(".main");
+const start = document.querySelector("#start");
+const buttons = document.querySelectorAll(".nav__button");
+
 let listElement = [];
+let list_element = createElements(listElement);
 
-function createElements(){
-    main.innerHTML = "";
-    listElement = [];
-    for (let i = 1; i<=10; i++){
-        const div = document.createElement("div");
-        div.innerHTML = `${i}`;
-        div.classList.add("bar", `bar_${i}`);
-        
-        const element = [];
-        element.push(i);
-        element.push(div)
-
-        listElement.push(element);
-    }
-    console.log(listElement);
-    console.log(listElement.sort(() => Math.random() - 0.5));
-    
-    return listElement.sort(() => Math.random() - 0.5);
-}
-
-function printElements(listElement) {
-    for (let i = 0; i<=9; i++){
-        main.appendChild(listElement[i][1]);
-    }
-}
-
-let list_element = createElements();
-
-reset.addEventListener("click", function(event){
-    printElements(createElements());
+// get method
+let method: string = "";
+buttons.forEach(function(button) {
+    button.addEventListener("click", function() {
+        method = button.getAttribute("name");
+    })
 });
+
+
+// start sort 
+start.addEventListener("click", function(){
+    console.log(method);
+
+    if(method == "quickSort"){
+        listElement = quickSort(listElement, 0, listElement.length-1);
+        printElements(createElements(listElement));
+    }
+})
+
+
+// reset array with div
+reset.addEventListener("click", function(event){
+    printElements(createElements(listElement));
+});
+
+//QUICK SORT 
+
 
